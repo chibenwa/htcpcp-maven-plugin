@@ -12,6 +12,8 @@ have to move to your coffee machine to get it.
 
 All HTCPCP coffee enhancements are supported.
 
+![](needMoreCoffee.jpg)
+
 ## What's in there ?
 
  - Configuration
