@@ -12,16 +12,22 @@ import com.btellier.htcpcp.maven.plugin.protocol.requests.StopBrewRequest;
 @Mojo(name = "stopBrew")
 public class HTCPCPStopBrewMojo extends AbstractMojo {
 
+    @Parameter(property = "fake", defaultValue = "false")
+    private boolean fake;
+
     /* Server parameters */
     @Parameter(property = "host", defaultValue = "")
     private String host;
 
-    @Parameter(property = "port", defaultValue = "")
+    @Parameter(property = "port", defaultValue = "80")
     private long port;
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
-        HTCPCPEngine.server(host, port)
-            .handle(new StopBrewRequest());
+        getLog().info("Start BREWING coffee on " + host + ":" + port);
+        if (!fake) {
+            HTCPCPEngine.server(host, port)
+                .handle(new StopBrewRequest());
+        }
     }
 }

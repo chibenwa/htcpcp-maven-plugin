@@ -13,11 +13,14 @@ import com.btellier.htcpcp.maven.plugin.protocol.requests.StartBrewRequest;
 @Mojo(name = "startBrew")
 public class HTCPCPStartBrewMojo extends AbstractMojo {
 
+    @Parameter(property = "fake", defaultValue = "false")
+    private boolean fake;
+
     /* Server parameters */
     @Parameter(property = "host", defaultValue = "")
     private String host;
 
-    @Parameter(property = "port", defaultValue = "")
+    @Parameter(property = "port", defaultValue = "80")
     private long port;
 
     /* Request parameters */
@@ -38,13 +41,16 @@ public class HTCPCPStartBrewMojo extends AbstractMojo {
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
-        HTCPCPEngine.server(host, port)
-            .handle(StartBrewRequest.builder()
-                .syrup(syrupType)
-                .milk(milkType)
-                .sweetener(sweetenerType)
-                .spice(spiceType)
-                .alcohol(alcoholType)
-                .build());
+        getLog().info("Start BREWING coffee on " + host + ":" + port);
+        if (!fake) {
+            HTCPCPEngine.server(host, port)
+                .handle(StartBrewRequest.builder()
+                    .syrup(syrupType)
+                    .milk(milkType)
+                    .sweetener(sweetenerType)
+                    .spice(spiceType)
+                    .alcohol(alcoholType)
+                    .build());
+        }
     }
 }
