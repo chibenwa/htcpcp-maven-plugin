@@ -18,6 +18,10 @@ public enum SyrupType {
         this.type = s;
     }
 
+    public String getValue() {
+        return type;
+    }
+
     public static SyrupType parseFromString(String s) throws UnknownSyrupTypeException {
         Preconditions.checkNotNull(s);
         return Stream.of(SyrupType.values())

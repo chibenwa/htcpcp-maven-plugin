@@ -20,6 +20,10 @@ public enum MilkType {
         this.type = s;
     }
 
+    public String getValue() {
+        return type;
+    }
+
     public static MilkType parseFromString(String s) throws UnknownMilkTypeException {
         Preconditions.checkNotNull(s);
         return Stream.of(MilkType.values())

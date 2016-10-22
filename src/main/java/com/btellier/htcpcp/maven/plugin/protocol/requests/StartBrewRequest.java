@@ -8,6 +8,8 @@ import com.btellier.htcpcp.maven.plugin.exceptions.UnknownSyrupTypeException;
 import com.btellier.htcpcp.maven.plugin.parameters.AlcoholType;
 import com.btellier.htcpcp.maven.plugin.parameters.MilkType;
 import com.btellier.htcpcp.maven.plugin.parameters.SyrupType;
+import com.google.common.collect.ImmutableList;
+import com.jayway.restassured.specification.RequestSpecification;
 
 public class StartBrewRequest implements HTCPCPRequest {
 
@@ -72,23 +74,18 @@ public class StartBrewRequest implements HTCPCPRequest {
     private final Optional<String> spiceType;
     private final AlcoholType alcoholType;
 
-    public SyrupType getSyrupType() {
-        return syrupType;
-    }
-
-    public MilkType getMilkType() {
-        return milkType;
-    }
-
-    public Optional<String> getSweetenerType() {
-        return sweetenerType;
-    }
-
-    public Optional<String> getSpiceType() {
-        return spiceType;
-    }
-
-    public AlcoholType getAlcoholType() {
-        return alcoholType;
+    @Override
+    public RequestSpecification encode(RequestSpecification restAssuredRequest) {
+        return ImmutableList.<HeaderEncoder>of(
+            new ConditionalHeaderEncoder(() -> syrupType != SyrupType.UNDEFINED, req -> req.header("syrup-type", syrupType.getValue())),
+            new ConditionalHeaderEncoder(() -> milkType != MilkType.UNDEFINED, req -> req.header("milk-type", milkType.getValue())),
+            new ConditionalHeaderEncoder(() -> alcoholType != AlcoholType.UNDEFINED, req -> req.header("alcohol-type", alcoholType.getValue())),
+            new ConditionalHeaderEncoder(sweetenerType::isPresent, req -> req.header("sweetener-type", sweetenerType.get())),
+            new ConditionalHeaderEncoder(spiceType::isPresent, req -> req.header("spice-type", spiceType.get())))
+            .stream()
+            .reduce(CombineHeaderEncoder::new)
+            .get()
+            .encode(restAssuredRequest)
+            .body("start");
     }
 }

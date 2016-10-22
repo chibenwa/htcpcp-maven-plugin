@@ -1,5 +1,10 @@
 package com.btellier.htcpcp.maven.plugin.protocol.requests;
 
-public class StopBrewRequest implements HTCPCPRequest {
+import com.jayway.restassured.specification.RequestSpecification;
 
+public class StopBrewRequest implements HTCPCPRequest {
+    @Override
+    public RequestSpecification encode(RequestSpecification restAssuredRequest) {
+        return restAssuredRequest.body("stop");
+    }
 }

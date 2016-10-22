@@ -20,7 +20,7 @@ public class HTCPCPStopBrewMojo extends AbstractMojo {
     private String host;
 
     @Parameter(property = "port", defaultValue = "80")
-    private long port;
+    private int port;
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {

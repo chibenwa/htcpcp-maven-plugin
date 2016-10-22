@@ -21,7 +21,7 @@ public class HTCPCPStartBrewMojo extends AbstractMojo {
     private String host;
 
     @Parameter(property = "port", defaultValue = "80")
-    private long port;
+    private int port;
 
     /* Request parameters */
     @Parameter(property = "syrupType", defaultValue = "")
