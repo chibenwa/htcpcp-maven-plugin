@@ -14,7 +14,77 @@ All HTCPCP coffee enhancements are supported.
 
 ## Configuration
 
-To be written soon.
+Clone the repository and run **mvn clean install**. Then add this plugin : 
+
+```
+            <plugin>
+                <groupId>com.btellier</groupId>
+                <artifactId>htcpcp-maven-plugin</artifactId>
+                <version>1.0-SNAPSHOT</version>
+                <executions>
+                    <!-- Will start pooring coffee when compilation begins -->
+                    <execution>
+                        <id>startBrew</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>startBrew</goal>
+                        </goals>
+                    </execution>
+                    <!-- Stop poring coffee when testing begin. You can now drink it while mvn proceeds unit testing and
+                    other goals -->
+                    <execution>
+                        <id>stopBrew</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>stopBrew</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <fake>true</fake>
+                    <!-- Optional
+                    Default value to false
+                    If true, do not perform the request
+                    -->
+                    <host>coffee.btellier.com</host>
+                    <!-- Compulsory
+                    The hostname of your coffee pot
+                    -->
+                    <port>80</port>
+                    <!-- Compulsory
+                    The port to be used by HTCPCP protocol
+                    -->
+                    <syrupType>Vanilla</syrupType>
+                    <!-- Optional
+                    Case incentive
+                    Possible values: Vanilla, Almond, Raspberry, Chocolate
+                    -->
+                    <milkType>Skim</milkType>
+                    <!-- Optional
+                    Case incentive
+                    Possible values: Skim, Cream, Half-and-half, Whole-milk, Part-Skim, Non-Dairy
+                    -->
+                    <alcoholType>Whisky</alcoholType>
+                    <!-- Optional
+                    Case incentive
+                    Possible values: Whisky, Rum, Kahlua, Aquavit
+                    -->
+                    <sweetenerType>any</sweetenerType>
+                    <!-- Optional
+                    As this parameter is not specified in the RFC, no validation, and no normalization is done.
+                    This task is thus server responsibility
+                    -->
+                    <spiceType>any</spiceType>
+                    <!-- Optional
+                    As this parameter is not specified in the RFC, no validation, and no normalization is done.
+                    This task is thus server responsibility
+                    -->
+                </configuration>
+            </plugin>
+```
+
+Note: validation of parameters is done by the client. However options should supported by your HTCPCP coffee pot. Refer 
+to manual selled with it for more details concerning supported capabilities.
 
 ## Using htcpcp-maven-plugin as a HTCPCP Java implementation
 
