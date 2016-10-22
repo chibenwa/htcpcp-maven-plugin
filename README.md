@@ -12,6 +12,15 @@ have to move to your coffee machine to get it.
 
 All HTCPCP coffee enhancements are supported.
 
+## What's in there ?
+
+ - Configuration
+ - Using htcpcp-maven-plugin as a HTCPCP Java implementation
+ - Limitation and roadmap
+ - How to contribute to this repository?
+ - Professional support
+ - License
+
 ## Configuration
 
 Clone the repository and run **mvn clean install**. Then add this plugin : 
@@ -126,7 +135,7 @@ supposed to be mature, and maven is a tool where the only limit is your imaginat
 client implementation a standalone project, with full support, along with a HTCPCP proxy server, to promote use of
 HTCPCP protocol in the industry. Reach me if interested!
 
-How to contribute to this repository ?
+## How to contribute to this repository?
 
  - You should first open an issue, and then come along with the related pull request.
  - No test please! We all love to find issues in production. (and I need to sell support...)
